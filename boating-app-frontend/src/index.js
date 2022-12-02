@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './error-page';
 import Login from './pages/login';
 import Home from './components/component';
+import { ConfigProvider } from 'antd';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,15 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#11BFAE',
+        },
+      }}
+    >
+      <RouterProvider router={router} />
+    </ConfigProvider>
   </React.StrictMode>
 );
 

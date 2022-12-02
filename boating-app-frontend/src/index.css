@@ -15,3 +15,7 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* CUSTOM primary colors for buttons and colored components */
+@primary-color: #1890ff;
