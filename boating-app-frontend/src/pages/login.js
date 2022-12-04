@@ -51,7 +51,10 @@ function Login() {
                             <Button type="primary" htmlType="submit" className="login-form-button w-full">
                                 Log in
                             </Button>
-                            Or <span>register now!</span>
+
+                            <Button type="link" block>
+                                register now!
+                            </Button>
                         </Form.Item>
                     </Form>
 
