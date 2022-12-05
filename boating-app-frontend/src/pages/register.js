@@ -5,42 +5,40 @@ import registerUser from '../logic/registerUser'
 function Register() {
     // const { setUser } = useContext(UserContext)
     // const navigate = useNavigate()
+    const [form] = Form.useForm();
+    let birthDateString = '';
 
-    const handleRegister = async event => {
+    const onBirthDateUpdate = (date, dateString) => {
+        birthDateString = dateString
+    }
 
-        event.preventDefault()
+    const onRegisterFinish = async (values) => {
 
-        const form = event.target
-
-        console.log(form)
-
-        const nameInput = form.name
-        const surnameInput = form.surname
-        const birthDateInput = form.birthDate
-        const idNumberInput = form.idNumber
-        const emailInput = form.email
-        const contactNumberInput = form.contactNumber
-        const addressInput = form.address
-        const passwordInput = form.password
-
-        const name = nameInput.value
-        const surname = surnameInput.value
-        const birthDate = birthDateInput.value
-        const idNumber = idNumberInput.value
-        const email = emailInput.value
-        const contactNumber = contactNumberInput.value
-        const address = addressInput.value
-        const password = passwordInput.value
+        const registrationData = {
+            name: values.name,
+            surname: values.surname,
+            birthDate: birthDateString,
+            idNumber: values.idNumber,
+            email: values.email,
+            contactNumber: values.phone,
+            address: {
+                street: values.street,
+                postalCode: values.postalCode,
+                city: values.city,
+                country: values.country
+            },
+            password: values.password,
+        }
 
         try {
-            registerUser(name, surname, birthDate, idNumber, email, contactNumber, address, password)
+
+            await registerUser(registrationData)
             // setUser(registeredUser)
 
             // navigate('/')
         } catch (error) {
             alert(error.message)
 
-            passwordInput.value = ''
         }
     }
     const formItemLayout = {
@@ -73,10 +71,8 @@ function Register() {
             },
         },
     };
-    const [form] = Form.useForm();
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
+
+
 
     return (
         <main className="h-screen w-screen flex flex-row items-center justify-center">
@@ -86,7 +82,7 @@ function Register() {
                         {...formItemLayout}
                         form={form}
                         name="register"
-                        onFinish={onFinish}
+                        onFinish={onRegisterFinish}
                         scrollToFirstError
                     >
                         <Form.Item
@@ -125,12 +121,12 @@ function Register() {
                         </Form.Item>
 
                         <Form.Item label="Date of birth">
-                            <DatePicker />
+                            <DatePicker onChange={onBirthDateUpdate} />
                         </Form.Item>
 
                         <Form.Item
-                            name="idnumber"
-                            label="idNumber"
+                            name="idNumber"
+                            label="Identification Number"
 
                             rules={[
                                 {
@@ -179,7 +175,7 @@ function Register() {
                         </Form.Item>
 
                         <Form.Item
-                            name="adress"
+                            name="street"
                             label="Adress"
                             rules={[
                                 {
@@ -197,7 +193,7 @@ function Register() {
                         </Form.Item>
 
                         <Form.Item
-                            name="Postal Code"
+                            name="postalCode"
                             label="Postal Code"
                             rules={[
                                 {
