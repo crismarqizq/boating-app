@@ -3,20 +3,20 @@ const model = mongoose.model
 
 const user = require('./schemas/user')
 // const boat = require('./schemas/boat')
-// const port = require('./port')
+const port = require('./schemas/port')
 
 // const booking = require('./schemas/booking')
 
 
 const User = model('User', user, 'User')
-// const Boat = model('User', user)
-// const Port = model('User', user)
+//const Boat = model('User', user)
+const Port = model('Port', port, 'Port')
 // const Booking = model('User', user)
 
 
 module.exports = {
     User,
     // Boat,
-    // Port,
+    Port,
     // Booking
 }

@@ -7,7 +7,7 @@ function Navbar() {
 
 
     return (
-        <header className="fixed flex justify-between bg-midblue p-3 w-full text-white text-lg">
+        <header className="fixed flex justify-between bg-midblue w-full text-white text-lg">
 
             {/* <span id="username-header-span" >Hello {user.name}!</span>
             <button onClick={logoutHandler}><AiOutlineLogout /> </button> */}
