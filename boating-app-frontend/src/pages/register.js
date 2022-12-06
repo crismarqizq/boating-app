@@ -72,8 +72,6 @@ function Register() {
         },
     };
 
-
-
     return (
         <main className="h-screen w-screen flex flex-row items-center justify-center">
             <div className="w-5/12 h-screen flex flex-col justify-center items-center bg-gray-800">
@@ -295,6 +293,5 @@ function Register() {
 
     )
 }
-
 
 export default Register

@@ -8,19 +8,7 @@ It's the final fullstack project where the main objective is to apply everything
 
 The main idea was to mix technology with a field/subject I am really passionate about: the sea.  While thinking about this, I asked myself, if in Internet you can book in different sites the accomodation in-land, what about an app to book stays in port when sailing? And that is how Boating-app was born.
 
-### 🔧 Used Technologies/Packages
-
-- JavaScript
-- React
-- React Router
-- NodeJS
-- MongoDB
-- Mongoose
-- Axios
-- Jsonwebtoken
-- Dotenv
-
-## 🎯 Goals
+## Functional Description
 
 - [ ] User Login
 - [ ] Register User
@@ -30,7 +18,15 @@ The main idea was to mix technology with a field/subject I am really passionate 
 - [ ] View main port info
 - [ ] View the weather on each port
 
-## 📚 Description
+### 🎨 Design
+
+Both Login and Register pages are divided, on the left hand side the form is set. On the right hand, I have used an aerial image of two boats.
+
+#### Color Palette
+
+I have chosen a combination of 4 colours: navy, mid-grey, turqoise and white bone. I think these tones are the perfect match for the theme of the app.
+
+## Technical Description
 
 ### Components
 
@@ -46,58 +42,55 @@ The main idea was to mix technology with a field/subject I am really passionate 
 
 All data storage is done in MongoDB by using Mongoose.
 
-Users
+User
 
-- _id: '',
+- id: '',
 - name: '',
 - surname: '',
-- DOB: date
+- birth date: date
 - passport: '',
 - email: '',
 - contact: '+34 123456789',
 - address:
 
-Boats
+Boat
 
-- _id: '',
+- id: '',
+- owner (ObjectId, user id)
 - name: '',
 - flag: '',
-- regNumber: 234252,
+- regNumber: '',
 - sail: true
 - length: number
 - beam: number
 - draft: number
 
-Ports
+Port
 
-- _id: '',
-- name: '',
-- coordinates: [40.123432, 0.8495893],
-- address:
-- berths
-- contact:
-  - vhf: 9,
-  - phone: '+34 555555555'
-- facilities: ['wc', 'restaurant', 'laundry', 'swim', 'parking', 'gas', 'gym', 'travel']
+- id (ObjectId, required),
+- name (String, requried),
+- coordinates ([Number], required),
+- address (String, required)
+- berths (Number, required)
+- vhf (Number, required)
+- phone (String, required)
+- facilities ([String], required, enum ['wc', 'restaurant', 'laundry', 'swim', 'parking', 'gas', 'gym', 'travel'])
 
-myBookings
+Booking
 
-- dates
-- port
-- boat
-- status
-- actions
-  - edit/delete booking
+- fromDate (Date, required)
+- toDate (Date, required)
+- port (ObjectId, port id, required)
+- boat (ObjectId, boat id, required)
+- status (String, required, enum: ['x', 'y', 'z'])
 
-## 🎨 Design
-
-Both Login and Register pages are divided, on the left hand side the form is set. On the right hand, I have used an aerial image of two boats.
-
-### Color Palette
-
-I have chosen a combination of 4 colours: navy, mid-grey, turqoise and white bone. I think these tones are the perfect match for the theme of the app.
-
-### Tools & Libraries
+### Technologies
 
 - Tailwind
 - AntDesign
+- React
+- React Router
+- Node
+- Express
+- Mongoose
+- JWT

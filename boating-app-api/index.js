@@ -6,7 +6,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 // const authenticateUserMiddleware = require('./middleware/authenticateUser')
 
-// const authUser = require('./handlers/authUser')
+const authenticateUser = require('./controllers/authenticateUser')
 const registerUser = require('./controllers/registerUser')
 // const createnewPost = require('./handlers/createnewPost')
 // const getPosts = require('./handlers/getPosts')
@@ -32,7 +32,7 @@ mongoose.connect(MONGODB_URL)
         app.use(bodyParser.json())
 
 
-        // app.post('/auth', authUser)
+        app.post('/auth', authenticateUser)
         app.post('/register', registerUser)
 
         // app.get('/posts', authenticateUserMiddleware, getPosts)

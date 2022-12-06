@@ -3,49 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ErrorPage from './error-page';
-import Login from './pages/login';
-import Register from './pages/register';
-import Home from './components/component';
-import { ConfigProvider } from 'antd';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "home",
-        element: <Home />,
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-]);
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#11BFAE',
-        },
-      }}
-    >
-      <RouterProvider router={router} />
-    </ConfigProvider>
-  </React.StrictMode>
+    <App></App>
+  </React.StrictMode >
 );
 
 // If you want to start measuring performance in your app, pass a function
