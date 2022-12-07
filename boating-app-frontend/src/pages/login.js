@@ -3,7 +3,7 @@ import authenticateUser from '../logic/authenticateUser';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import UserContext from '../UserContext';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
@@ -93,9 +93,9 @@ function Login() {
                                 Log in
                             </Button>
 
-                            <Button to="/register" type="link" block>
-                                register now!
-                            </Button>
+                            <Link to="/register" className="underline">
+                                Or register now!
+                            </Link>
                         </Form.Item>
                     </Form>
 

@@ -1,5 +1,7 @@
-function Port({ portInfo }) {
+import { useNavigate } from "react-router-dom";
 
+function Port({ portInfo }) {
+    const navigate = useNavigate()
 
     function convertToDms(dd, isLng) {
         var dir = dd < 0
@@ -16,12 +18,15 @@ function Port({ portInfo }) {
         return deg + "°" + min + "'" + sec + '"' + dir;
     }
 
+    function createNewBooking() {
+        navigate('/bookings')
+    }
 
     return (
         <>
             <div className="flex flex-col bg-white font-sans shadow-md">
-                <div className="flex-none h-60 relative">
-                    <img src={portInfo.imagePath} alt="" className="absolute inset-0 w-full h-full object-cover"></img>
+                <div className="h-60 bg-cover bg-center" style={{ backgroundImage: `url(${portInfo.imagePath})` }}>
+
                 </div>
                 <div className="p-2">
                     <div>
@@ -50,6 +55,9 @@ function Port({ portInfo }) {
                         <p>Berths {portInfo.berths}</p>
 
                         {/* facilities icons */}
+                    </div>
+                    <div className="flex justify-center">
+                        <button onClick={createNewBooking} className="bg-midgreen text-white rounded-lg text-md p-2 ">Book now</button>
                     </div>
 
                 </div>

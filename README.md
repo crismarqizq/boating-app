@@ -78,8 +78,8 @@ Port
 
 Booking
 
-- fromDate (Date, required)
-- toDate (Date, required)
+- startDate (Date, required)
+- endDate (Date, required)
 - port (ObjectId, port id, required)
 - boat (ObjectId, boat id, required)
 - status (String, required, enum: ['x', 'y', 'z'])

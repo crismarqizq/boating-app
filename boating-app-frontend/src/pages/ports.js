@@ -9,13 +9,16 @@ function PortsPage() {
     const goToBoats = () => {
         navigate('/boats')
     }
+    const goToBookings = () => {
+        navigate('/bookings')
+    }
 
     return (
 
         <main className="w-screen h-screen bg-bone pt-20">
             <PortsList></PortsList>
-
             <button onClick={goToBoats}>GoToBoats</button>
+            <button onClick={goToBookings}>GoToBookings</button>
         </main>
 
     );

@@ -1,15 +1,9 @@
 const { Port } = require('../models')
-const context = require('./context')
 
 
 async function getPorts() {
-
-
-    const all = await Port.find()
-
-
-
-    return all
+    const ports = await Port.find()
+    return ports
 
 }
 

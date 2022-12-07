@@ -1,10 +1,12 @@
+import { useContext } from 'react';
 import { Button, DatePicker, Form, Input } from 'antd';
 import registerUser from '../logic/registerUser'
-// import UserContext from "../UserContext";
+import { Link, useNavigate } from 'react-router-dom'
+import UserContext from "../UserContext";
 
 function Register() {
-    // const { setUser } = useContext(UserContext)
-    // const navigate = useNavigate()
+    const { setUser } = useContext(UserContext)
+    const navigate = useNavigate()
     const [form] = Form.useForm();
     let birthDateString = '';
 
@@ -32,10 +34,10 @@ function Register() {
 
         try {
 
-            await registerUser(registrationData)
-            // setUser(registeredUser)
+            const registeredUser = await registerUser(registrationData)
+            setUser(registeredUser)
 
-            // navigate('/')
+            navigate('/ports')
         } catch (error) {
             alert(error.message)
 
@@ -285,6 +287,10 @@ function Register() {
                                 Register
                             </Button>
                         </Form.Item>
+
+                        <Link to="/login" className="underline">
+                            Already have an account? Login
+                        </Link>
                     </Form>
                 </div>
             </div>
