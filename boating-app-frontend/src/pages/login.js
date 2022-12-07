@@ -39,7 +39,7 @@ function Login() {
             axios.defaults.headers.common['Authorization'] = `Bearer ${tokenString}`;
 
             // Navigate to home
-            navigate('/')
+            navigate('/ports')
 
         } catch (error) {
             alert(error.message)
@@ -93,7 +93,7 @@ function Login() {
                                 Log in
                             </Button>
 
-                            <Button type="link" block>
+                            <Button to="/register" type="link" block>
                                 register now!
                             </Button>
                         </Form.Item>
