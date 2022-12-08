@@ -1,18 +1,41 @@
-import React, { useState } from 'react';
-import { AutoComplete, Button, Form, Input, Select } from 'antd';
+import React from 'react';
+import { Button, Form, Input, Select } from 'antd';
 import BoatsList from '../components/boatslist';
+import registerBoat from '../logic/registerBoat';
+
 
 function Boats() {
     const [form] = Form.useForm();
 
-    async function onBoatCreation(boatInfo) {
-        // Send request to API so we can create a new boat given the object passed
-        // await POST/boat
+    //async function onBoatCreation(boatInfo) {
+    // Send request to API so we can create a new boat given the object passed
+    // await POST/boat
+    const onBoatCreation = async (values) => {
 
+        const isSailboat = values.sail === 'yes' ? true : false
 
+        const boatInfo = {
+            name: values.name,
+            flag: values.flag,
+            regNumber: values.regNumber,
+            sail: isSailboat,
+            length: values.length,
+            beam: values.beam,
+            draft: values.draft
 
-        // Refresh state -> refresh boats list
+        }
+        try {
+            await registerBoat(boatInfo)
+
+        } catch (error) {
+            alert(error.message)
+
+        }
     }
+
+
+    // Refresh state -> refresh boats list
+
     const { Option } = Select;
 
     const formItemLayout = {
@@ -106,8 +129,8 @@ function Boats() {
                         ]}
                     >
                         <Select placeholder="Sail">
-                            <Option value="sail">Yes</Option>
-                            <Option value="motor">No</Option>
+                            <Option value="yes">Yes</Option>
+                            <Option value="no">No</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item

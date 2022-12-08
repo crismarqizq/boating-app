@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import getUserBoats from "../logic/boatslist";
 
-
+//FIXME: this doesnt work
 function BoatsList() {
 
     const [boats, setBoats] = useState([])

@@ -8,8 +8,9 @@ const authenticateUserMiddleware = require('./middleware/authenticateUser')
 
 const authenticateUser = require('./controllers/authenticateUser')
 const registerUser = require('./controllers/registerUser')
-// const createnewPost = require('./handlers/createnewPost')
+
 const getPorts = require('./controllers/getPorts')
+const registerBoat = require('./controllers/registerBoat')
 const getBoats = require('./controllers/getBoats')
 // const updatePost = require('./handlers/updatePost')
 // const deletePost = require('./handlers/deletePost')
@@ -38,7 +39,7 @@ mongoose.connect(MONGODB_URL)
 
         app.get('/ports', authenticateUserMiddleware, getPorts)
         app.get('/boats', authenticateUserMiddleware, getBoats)
-        // app.post('/posts', authenticateUserMiddleware, createnewPost)
+        app.post('/boats', authenticateUserMiddleware, registerBoat)
         // app.patch('/posts/:postId', authenticateUserMiddleware, authoriseUser, updatePost)
         // app.delete('/posts/:postId', authenticateUserMiddleware, authoriseUser, deletePost)
 
