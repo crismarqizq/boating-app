@@ -1,26 +1,11 @@
-import { useEffect, useState } from "react";
-import getUserBoats from "../logic/boatslist";
 
-//FIXME: this doesnt work
-function BoatsList() {
-
-    const [boats, setBoats] = useState([])
-
-
-    useEffect(() => {
-        const fetchBoats = async () => {
-            const fetchedBoats = await getUserBoats()
-            setBoats(fetchedBoats)
-        }
-        fetchBoats()
-    }, [])
-
+function BoatsList({ boatsList }) {
 
     return (
         <>
-            <div>
-                {boats}
-            </div>
+            {boatsList.map(boat => (
+                <div>This is {boat.name}</div>
+            ))}
         </>
     )
 
