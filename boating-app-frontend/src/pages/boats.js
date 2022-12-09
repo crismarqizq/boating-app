@@ -28,8 +28,7 @@ function Boats() {
 
 
     return (
-        <main className="w-screen h-screen bg-bone pt-20">
-
+        <main className="w-screen min-h-screen bg-bone pt-10">
             <div>
                 <BoatRegistration onCreate={refreshBoats}></BoatRegistration>
                 <BoatsList boatsList={boats}></BoatsList>

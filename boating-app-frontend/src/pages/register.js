@@ -1,41 +1,70 @@
-import { useContext } from 'react';
-import { Button, DatePicker, Form, Input } from 'antd';
+import { useContext, useState } from 'react';
 import registerUser from '../logic/registerUser'
 import { Link, useNavigate } from 'react-router-dom'
 import UserContext from "../UserContext";
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
 function Register() {
     const { setUser } = useContext(UserContext)
+    const [formStep, setFormStep] = useState(1);
+    const [name, setName] = useState();
+    const [surname, setSurname] = useState();
+    const [birthDate, setBirthDate] = useState();
+    const [idNumber, setidNumber] = useState();
+    const [email, setEmail] = useState();
+    const [contactNumber, setContactNumber] = useState();
+    const [address, setAddress] = useState();
+    const [postalCode, setPostalCode] = useState();
+    const [city, setCity] = useState();
+    const [country, setCountry] = useState();
+    const [password, setPassword] = useState();
     const navigate = useNavigate()
-    const [form] = Form.useForm();
-    let birthDateString = '';
 
-    const onBirthDateUpdate = (date, dateString) => {
-        birthDateString = dateString
+
+    const nextFormStep = (event) => {
+        event.preventDefault();
+        setFormStep(formStep + 1)
     }
 
-    const onRegisterFinish = async (values) => {
+
+    const onRegisterFinish = async (event) => {
+        event.preventDefault()
 
         const registrationData = {
-            name: values.name,
-            surname: values.surname,
-            birthDate: birthDateString,
-            idNumber: values.idNumber,
-            email: values.email,
-            contactNumber: values.phone,
+            name,
+            surname,
+            birthDate,
+            idNumber,
+            email,
+            contactNumber,
             address: {
-                street: values.street,
-                postalCode: values.postalCode,
-                city: values.city,
-                country: values.country
+                street: address,
+                postalCode,
+                city,
+                country
             },
-            password: values.password,
+            password,
         }
 
         try {
 
-            const registeredUser = await registerUser(registrationData)
-            setUser(registeredUser)
+            const tokenReponse = await registerUser(registrationData)
+            const tokenString = tokenReponse.token
+            const decodedToken = jwt_decode(tokenString)
+
+            setUser({
+                _id: decodedToken.sub,
+                email: decodedToken.email,
+                name: decodedToken.name,
+                token: tokenString
+            })
+
+            console.log('INFO', `User ${decodedToken.name} successfully registered and logged in`)
+
+            //FIXME: use state manager to set axios default headers
+            axios.defaults.headers.common['Authorization'] = `Bearer ${tokenString}`;
+
 
             navigate('/ports')
         } catch (error) {
@@ -43,255 +72,196 @@ function Register() {
 
         }
     }
-    const formItemLayout = {
-        labelCol: {
-            xs: {
-                span: 24,
-            },
-            sm: {
-                span: 8,
-            },
-        },
-        wrapperCol: {
-            xs: {
-                span: 24,
-            },
-            sm: {
-                span: 16,
-            },
-        },
-    };
-    const tailFormItemLayout = {
-        wrapperCol: {
-            xs: {
-                span: 22,
-                offset: 0,
-            },
-            sm: {
-                span: 16,
-                offset: 8,
-            },
-        },
-    };
 
     return (
         <main className="h-screen w-screen flex flex-row items-center justify-center">
             <div className="w-5/12 h-screen flex flex-col justify-center items-center bg-gray-800">
                 <div className="register-form bg-bone flex p-4">
-                    <Form
-                        {...formItemLayout}
-                        form={form}
-                        name="register"
-                        onFinish={onRegisterFinish}
-                        scrollToFirstError
-                    >
-                        <Form.Item
-                            name="name"
-                            label="First name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your name!',
-                                },
-                            ]}
-                        >
-                            <Input
+                    <div className="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
+                        <form onSubmit={onRegisterFinish}>
+                            {formStep === 1 && <>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="firstNameInput" className="form-label inline-block mb-2 text-gray-700">First name</label>
+                                    <input
+                                        type="name"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="firstNameInput"
+                                        name="firstName"
+                                        placeholder="Enter name"
+                                        onChange={(e) => { setName(e.target.value) }} />
+                                </div>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="surnameInput" className="form-label inline-block mb-2 text-gray-700">Surname</label>
+                                    <input
+                                        type="surname"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="surnameInput"
+                                        name="surname"
+                                        placeholder="Enter surname"
+                                        onChange={(e) => { setSurname(e.target.value) }} />
+                                </div>
+                                <div className="form-group mb-6">
+                                    <div className="datepicker relative form-floating mb-3 xl:w-96" data-mdb-toggle-button="false">
+                                        <input type="date"
+                                            className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                            placeholder="Select a date" data-mdb-toggle="datepicker"
+                                            onChange={(e) => { setBirthDate(e.target.value) }} />
+                                        <label htmlFor="floatingInput" className="text-gray-700">Select a date</label>
+                                    </div>
+                                </div>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="idNumberInput" className="form-label inline-block mb-2 text-gray-700">Identification Number</label>
+                                    <input
+                                        type="passport"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="idNumberInput"
+                                        name="idNumber"
+                                        placeholder="Enter ID number"
+                                        onChange={(e) => { setidNumber(e.target.value) }} />
+                                </div>
 
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                        </Form.Item>
-                        <Form.Item
-                            name="surname"
-                            label="surname"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your last name!',
-                                },
-                            ]}
-                        >
-                            <Input
+                                <div className="form-group mb-6">
+                                    <label htmlFor="phoneInput" className="form-label inline-block mb-2 text-gray-700">Phone number</label>
+                                    <input
+                                        type="telephone"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="phoneInput"
+                                        name="phone"
+                                        placeholder="Enter phone number"
+                                        onChange={(e) => { setContactNumber(e.target.value) }} />
+                                </div>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="emailInput" className="form-label inline-block mb-2 text-gray-700">Email address</label>
+                                    <input
+                                        type="email"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="emailInput"
+                                        name="email"
+                                        placeholder="Enter email"
+                                        onChange={(e) => { setEmail(e.target.value) }} />
+                                </div>
 
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                        </Form.Item>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="passwordInput" className="form-label inline-block mb-2 text-gray-700">Password</label>
+                                    <input type="password"
+                                        className="form-control block
+                                        w-full
+                                        px-3
+                                        py-1.5
+                                        text-base
+                                        font-normal
+                                        text-gray-700
+                                        bg-white bg-clip-padding
+                                        border border-solid border-gray-300
+                                        rounded
+                                        transition
+                                        ease-in-out
+                                        m-0
+                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        id="passwordInput"
+                                        name="password"
+                                        placeholder="Password"
+                                        onChange={(e) => { setPassword(e.target.value) }} />
+                                </div>
 
-                        <Form.Item label="Date of birth">
-                            <DatePicker onChange={onBirthDateUpdate} />
-                        </Form.Item>
+                                <button onClick={nextFormStep}>Next</button>
+                            </>}
 
-                        <Form.Item
-                            name="idNumber"
-                            label="Identification Number"
+                            {formStep === 2 && <>
 
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your idNumber!',
-                                    whitespace: true,
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="addressInput" className="form-label inline-block mb-2 text-gray-700">Street</label>
+                                    <input
+                                        type="address"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="addressInput"
+                                        name="address"
+                                        placeholder="Enter your address"
+                                        onChange={(e) => { setAddress(e.target.value) }} />
+                                </div>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="postalCodeInput" className="form-label inline-block mb-2 text-gray-700">Postal code</label>
+                                    <input
+                                        type="postcode"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="postalCodeInput"
+                                        name="postalCode"
+                                        placeholder="Enter your postal code"
+                                        onChange={(e) => { setPostalCode(e.target.value) }} />
+                                </div>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="cityInput" className="form-label inline-block mb-2 text-gray-700">City</label>
+                                    <input
+                                        type="city"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="cityInput"
+                                        name="city"
+                                        placeholder="Enter your city"
+                                        onChange={(e) => { setCity(e.target.value) }} />
+                                </div>
+                                <div className="form-group mb-6">
+                                    <label htmlFor="countryInput" className="form-label inline-block mb-2 text-gray-700">Country</label>
+                                    <input
+                                        type="city"
+                                        className="form-control 
+                                    block w-full px-3 py-1.5 text-base font-normal 
+                                    text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    focus:outline-none"
+                                        id="countryInput"
+                                        name="country"
+                                        placeholder="Enter your country"
+                                        onChange={(e) => { setCountry(e.target.value) }} />
+                                </div>
 
-                        <Form.Item
-                            name="email"
-                            label="E-mail"
-                            rules={[
-                                {
-                                    type: 'email',
-                                    message: 'The input is not valid E-mail!',
-                                },
-                                {
-                                    required: true,
-                                    message: 'Please input your E-mail!',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
+                                <button type="submit"
+                                    className="w-full px-6 py-2.5 bg-midgreen 
+                                    text-white font-medium text-xs leading-tight 
+                                    uppercase rounded shadow-md hover:bg-blue-700 
+                                    hover:shadow-lg focus:bg-blue-700 focus:shadow-lg 
+                                    focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
+                                    ease-in-out">
+                                    Register
+                                </button>
 
-                        <Form.Item
-                            name="phone"
-                            label="Phone Number"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your phone number!',
-                                },
-                            ]}
-                        >
-                            <Input
+                            </>}
 
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                        </Form.Item>
+                            <Link to="/login" className='underline'>Already have an account?</Link>
+                        </form>
+                    </div>
 
-                        <Form.Item
-                            name="street"
-                            label="Adress"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your adress!',
-                                },
-                            ]}
-                        >
-                            <Input
-
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="postalCode"
-                            label="Postal Code"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your postal code!',
-                                },
-                            ]}
-                        >
-                            <Input
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="city"
-                            label="City"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your city!',
-                                },
-                            ]}
-                        >
-                            <Input
-
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="country"
-                            label="Country"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your country!',
-                                },
-                            ]}
-                        >
-                            <Input
-
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="password"
-                            label="Password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                },
-                            ]}
-                            hasFeedback
-                        >
-                            <Input.Password />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="confirm"
-                            label="Confirm Password"
-                            dependencies={['password']}
-                            hasFeedback
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please confirm your password!',
-                                },
-                                ({ getFieldValue }) => ({
-                                    validator(_, value) {
-                                        if (!value || getFieldValue('password') === value) {
-                                            return Promise.resolve();
-                                        }
-                                        return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                                    },
-                                }),
-                            ]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-
-                        <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
-                                Register
-                            </Button>
-                        </Form.Item>
-
-                        <Link to="/login" className="underline">
-                            Already have an account? Login
-                        </Link>
-                    </Form>
                 </div>
             </div>
             <div className="login-background-image w-7/12 h-screen bg-cover bg-center" style={{ backgroundImage: "url(/login/background.jpg)" }}></div>

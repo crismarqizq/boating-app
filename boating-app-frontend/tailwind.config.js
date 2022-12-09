@@ -2,7 +2,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx}"],
+  content: ["./src/**/*.{html,js,jsx}", './node_modules/tw-elements/dist/js/**/*.js'],
   theme: {
     colors: {
       transparent: 'transparent',
@@ -20,8 +20,6 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
-  corePlugins: {
-    preflight: false,
-  }
+  plugins: [require('tw-elements/dist/plugin')],
+  corePlugins: {}
 }
