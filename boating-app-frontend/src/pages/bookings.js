@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import getPorts from "../logic/portsList";
+import boatslist from "../logic/boatslist"
+import BookingCreation from "../components/createBooking";
 
 function Bookings() {
 
@@ -12,9 +14,11 @@ function Bookings() {
     useEffect(() => {
         const fetchData = async () => {
             const fetchedPorts = await getPorts()
-            // const fetchedBoats = await getBoats()
+            const fetchedBoats = await boatslist()
+
             setPorts(fetchedPorts)
-            //setBoats(fetchedBoats)
+            setBoats(fetchedBoats)
+
         }
         fetchData()
     }, [])
@@ -22,7 +26,7 @@ function Bookings() {
 
     return (
         <main className="w-screen h-screen bg-bone pt-20">
-            <div>Here we should render new booking form</div>
+            <BookingCreation boats={boats} ports={ports}></BookingCreation>
             <div>Here we should render bookings list</div>
 
         </main>
