@@ -1,6 +1,8 @@
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import UserContext from "../UserContext"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 function Navbar() {
 
@@ -16,9 +18,9 @@ function Navbar() {
     }
 
     return (
-        <nav className="relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light">
+        <nav className="relative w-full flex flex-wrap items-center justify-between py-4 bg-darkblue text-white hover:text-gray-100 focus:text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light">
             <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
-                <button className="navbar-toggler text-gray-500 border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline"
+                <button className="navbar-toggler text-white border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline"
                     type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars"
@@ -29,16 +31,20 @@ function Navbar() {
                     </svg>
                 </button>
                 <div className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
-                    <Link to={'/ports'} className="nav-link active" aria-current="page">
-                        <span className="text-xl text-black">Boating App</span>
+                    <Link to={'/ports'} className="nav-link" aria-current="page">
+                        <span className="text-xl">Boating App</span>
                     </Link>
 
                     <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
                         <li className="nav-item px-2">
-                            <Link to={'/boats'} className="nav-link active" aria-current="page">Boats</Link>
+                            <Link to={'/boats'} className="nav-link " aria-current="page">Boats</Link>
                         </li>
                         <li className="nav-item px-2">
-                            <Link to={'/bookings'} className="nav-link active" aria-current="page">Bookings</Link>
+                            <Link to={'/bookings'} className="nav-link" aria-current="page">Bookings</Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <Link to={'/bookings'} className="nav-link text-white" aria-current="page"><FontAwesomeIcon icon={faUser} /></Link>
+
                         </li>
 
                     </ul>

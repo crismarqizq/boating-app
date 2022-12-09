@@ -31,7 +31,12 @@ function Boats() {
         <main className="w-screen min-h-screen bg-bone pt-10">
             <div>
                 <BoatRegistration onCreate={refreshBoats}></BoatRegistration>
-                <BoatsList boatsList={boats}></BoatsList>
+                <div className="flex justify-center">
+                    <div className="w-11/12">
+                        <BoatsList boatsList={boats}></BoatsList>
+                    </div>
+                </div>
+
             </div>
         </main>
     )

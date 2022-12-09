@@ -94,7 +94,7 @@ function BoatRegistration({ onCreate }) {
                                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                     id="regNumberInput"
                                     name="regNumber"
-                                    placeholder="Registration flag" />
+                                    placeholder="Registration number" />
                             </div>
                             <div className="form-group mb-6">
                                 <label htmlFor="sailInput" className="form-label inline-block mb-2 text-gray-700">Type</label>
