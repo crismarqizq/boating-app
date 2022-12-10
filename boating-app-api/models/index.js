@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
 const model = mongoose.model
 
-const user = require('./schemas/user')
-const boat = require('./schemas/boat')
-const port = require('./schemas/port')
-const booking = require('./schemas/booking')
+const userSchema = require('./schemas/user')
+const boatSchema = require('./schemas/boat')
+const portSchema = require('./schemas/port')
+const bookingSchema = require('./schemas/booking')
 
 
-const User = model('User', user, 'User')
-const Boat = model('Boat', boat, 'Boat')
-const Port = model('Port', port, 'Port')
-const Booking = model('Booking', booking, 'Booking')
+const User = model('User', userSchema)
+const Boat = model('Boat', boatSchema)
+const Port = model('Port', portSchema)
+const Booking = model('Booking', bookingSchema)
 
 
 module.exports = {

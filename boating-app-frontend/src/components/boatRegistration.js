@@ -126,7 +126,7 @@ function BoatRegistration({ onCreate }) {
 
                             <div className="form-group mb-6">
                                 <label htmlFor="lengthInput" className="form-label inline-block mb-2 text-gray-700">Length (m)</label>
-                                <input type="number"
+                                <input type="number" step="any" min="0"
                                     className="form-control block
                                         w-full
                                         px-3
@@ -147,7 +147,7 @@ function BoatRegistration({ onCreate }) {
                             </div>
                             <div className="form-group mb-6">
                                 <label htmlFor="beamInput" className="form-label inline-block mb-2 text-gray-700">Beam (m)</label>
-                                <input type="number"
+                                <input type="number" step="any" min="0"
                                     className="form-control block
                                         w-full
                                         px-3
@@ -168,7 +168,7 @@ function BoatRegistration({ onCreate }) {
                             </div>
                             <div className="form-group mb-6">
                                 <label htmlFor="draftInput" className="form-label inline-block mb-2 text-gray-700">Draft (m)</label>
-                                <input type="number"
+                                <input type="number" step="any" min="0"
                                     className="form-control block
                                         w-full
                                         px-3

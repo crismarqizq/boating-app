@@ -14,6 +14,7 @@ const registerBoat = require('./controllers/registerBoat')
 const getBoats = require('./controllers/getBoats')
 
 const createBooking = require('./controllers/createBooking')
+const getBookings = require('./controllers/getBookings')
 // const updatePost = require('./handlers/updatePost')
 // const deletePost = require('./handlers/deletePost')
 
@@ -44,6 +45,7 @@ mongoose.connect(MONGODB_URL)
         app.post('/boats', authenticateUserMiddleware, registerBoat)
 
         app.post('/bookings', authenticateUserMiddleware, createBooking)
+        app.get('/bookings', authenticateUserMiddleware, getBookings)
         // app.patch('/posts/:postId', authenticateUserMiddleware, authoriseUser, updatePost)
         // app.delete('/posts/:postId', authenticateUserMiddleware, authoriseUser, deletePost)
 

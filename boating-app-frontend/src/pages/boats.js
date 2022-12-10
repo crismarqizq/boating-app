@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import BoatRegistration from '../components/boatRegistration';
 import BoatsList from '../components/boatslist';

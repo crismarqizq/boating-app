@@ -1,8 +1,10 @@
+
 import { useState } from "react";
+
 import createBooking from "../logic/createBooking";
 
 
-function BookingCreation({ boats, ports }) {
+function BookingCreation({ onCreate, boats, ports }) {
 
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
@@ -10,7 +12,24 @@ function BookingCreation({ boats, ports }) {
 
 
     const createNewBooking = async (event) => {
-        event.preventdefault()
+        event.preventDefault();
+
+        const form = event.target
+
+        const bookingInfo = {
+            startDate,
+            endDate,
+            portId: form.port.value,
+            boatId: form.boat.value,
+        }
+
+        try {
+            await createBooking(bookingInfo)
+            await onCreate()
+
+        } catch (error) {
+            alert(error.message)
+        }
 
     }
 

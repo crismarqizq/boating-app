@@ -5,9 +5,8 @@ module.exports = async (req, res) => {
     try {
         const userId = req.user.id
         const newBooking = await createBooking(userId, req.body)
-        const bookingInfo = newBooking.toObject()
 
-        res.status(201).send(bookingInfo)
+        res.status(201).send(newBooking)
 
     } catch (error) {
         console.log(error)
