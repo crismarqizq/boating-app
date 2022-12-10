@@ -53,10 +53,10 @@ function BookingsList({ bookingsList, ports, boats }) {
                                         <tr key={booking._id} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
                                             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {booking.startDate}
+                                                {new Date(booking.startDate).toLocaleDateString()}
                                             </td>
                                             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {booking.endDate}
+                                                {new Date(booking.endDate).toLocaleDateString()}
                                             </td>
                                             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 {portNameFromId(booking.port)}

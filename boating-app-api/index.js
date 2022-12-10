@@ -16,10 +16,10 @@ const getBoats = require('./controllers/getBoats')
 const createBooking = require('./controllers/createBooking')
 const getBookings = require('./controllers/getBookings')
 // const updatePost = require('./handlers/updatePost')
-// const deletePost = require('./handlers/deletePost')
+const deleteBooking = require('./controllers/deleteBooking')
 
 const context = require('./logic/context')
-// const authoriseUser = require('./middleware/authoriseUser')
+const authoriseUser = require('./middleware/authoriseUser')
 
 const { MONGODB_URL } = process.env
 
@@ -47,7 +47,7 @@ mongoose.connect(MONGODB_URL)
         app.post('/bookings', authenticateUserMiddleware, createBooking)
         app.get('/bookings', authenticateUserMiddleware, getBookings)
         // app.patch('/posts/:postId', authenticateUserMiddleware, authoriseUser, updatePost)
-        // app.delete('/posts/:postId', authenticateUserMiddleware, authoriseUser, deletePost)
+        app.delete('/bookings/:bookingId', authenticateUserMiddleware, authoriseUser, deleteBooking)
 
 
         //app.get('/search', searchGet)

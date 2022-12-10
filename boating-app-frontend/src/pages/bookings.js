@@ -40,10 +40,14 @@ function Bookings() {
 
 
     return (
-        <main className="w-screen h-screen bg-bone pt-20">
-            <BookingCreation onCreate={refreshBookings} boats={boats} ports={ports}></BookingCreation>
+        <main className="w-screen min-h-screen bg-bone pt-10">
             <div>
-                <BookingsList bookingsList={bookings} ports={ports} boats={boats} ></BookingsList>
+                <BookingCreation onCreate={refreshBookings} boats={boats} ports={ports}></BookingCreation>
+                <div className="flex justify-center">
+                    <div className="w-11/12">
+                        <BookingsList bookingsList={bookings} ports={ports} boats={boats} ></BookingsList>
+                    </div>
+                </div>
             </div>
 
         </main>

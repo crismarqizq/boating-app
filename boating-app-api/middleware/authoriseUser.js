@@ -1,29 +1,25 @@
 const ObjectId = require('mongodb').ObjectId;
-const context = require('../logic/context')
+const { Booking } = require('../models')
 
 module.exports = async (req, res, next) => {
     try {
 
         const userId = req.user.id
-        const postId = req.params.postId
 
-        // If requested route has :postID parameter, we check ownership based on userID
-        if (postId) {
-            const { db } = context
-            const postsDB = db.collection('posts')
+        if (req.params.bookingId) {
+            const bookingId = req.params.bookingId
+            console.log('Checking bookingId ownership')
 
-            const post = await postsDB.findOne({ _id: new ObjectId(postId) })
+            const booking = await Booking.findOne({ _id: new ObjectId(bookingId), user: new ObjectId(userId) })
 
-            if (!post) {
-                return res.status(404).send({ error: 'Post not found' })
-            } else {
-                if (post.userId === userId) {
-                    return next()
-                } else {
-                    return res.status(401).send({ error: 'Not authorised' })
-                }
+            if (!booking) {
+                console.log('Booking ownership condition could not be satisfied')
+                return res.status(401).send({ error: 'Not authorised' })
             }
+        }
 
+        if (req.params.boatId) {
+            console.log('Checking boatId ownership')
         }
 
         return next();

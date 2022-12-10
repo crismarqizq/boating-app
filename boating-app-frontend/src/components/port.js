@@ -30,29 +30,35 @@ function Port({ portInfo }) {
                 </div>
                 <div className="p-2">
                     <div>
-                        <h2 className="text-darkblue">{portInfo.name}</h2>
+                        <h2 className="text-darkblue font-bold text-lg">{portInfo.name}</h2>
                         <div>
-                            <div><span className="text-midblue font-semibold">Location:</span> {convertToDms(portInfo.coordinates[0], false)}
-                                <span className="ml-1"></span>
-                                {convertToDms(portInfo.coordinates[1], true)}
+                            <div><span className="text-midblue font-semibold">Location:</span>
+                                <div className="text-midblue font-thin"> {convertToDms(portInfo.coordinates[0], false)}
+                                    <span className="ml-1"></span>
+                                    {convertToDms(portInfo.coordinates[1], true)}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <p>
+                        <span className="text-midblue font-semibold">Address:</span>
+                        <p className="text-midblue font-thin">
                             {portInfo.street},
                             {portInfo.postalCode},
                             {portInfo.town},
                             {portInfo.city},
                             {portInfo.country}
                         </p>
-                        <p> {portInfo.contactNumber}</p>
-                        <p>VHF: {portInfo.VHF}</p>
+                        <span className="text-midblue font-semibold">Contact Number:</span>
+                        <p className="text-midblue font-thin"> {portInfo.contactNumber}</p>
+                        <span className="text-midblue font-semibold">VHF channel:</span>
+                        <p className="text-midblue font-thin">{portInfo.VHF}</p>
 
                     </div>
 
                     <div>
-                        <p>Berths {portInfo.berths}</p>
+                        <span className="text-midblue font-semibold">Berths:</span>
+                        <p className="text-midblue font-thin">{portInfo.berths}</p>
 
                         {/* facilities icons */}
                     </div>
