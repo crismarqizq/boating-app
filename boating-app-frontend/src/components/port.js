@@ -28,7 +28,7 @@ function Port({ portInfo }) {
                 <div className="h-60 bg-cover bg-center" style={{ backgroundImage: `url(${portInfo.imagePath})` }}>
 
                 </div>
-                <div className="p-2">
+                <div className="p-6">
                     <div>
                         <h2 className="text-darkblue font-bold text-lg">{portInfo.name}</h2>
                         <div>

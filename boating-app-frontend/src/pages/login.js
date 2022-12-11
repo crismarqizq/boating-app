@@ -3,7 +3,7 @@ import authenticateUser from '../logic/authenticateUser';
 import UserContext from '../UserContext';
 import { Link, useNavigate } from 'react-router-dom'
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
+import appSessionManager from '../helpers/sessionManager';
 
 function Login() {
 
@@ -25,6 +25,7 @@ function Login() {
             const tokenString = tokenReponse.token
             const decodedToken = jwt_decode(tokenString)
 
+            appSessionManager.saveSessionToLocalStorage(tokenString)
 
             setUser({
                 _id: decodedToken.sub,
@@ -35,9 +36,6 @@ function Login() {
 
 
             console.log('INFO', `User ${decodedToken.name} successfully logged in`)
-
-            //FIXME: use state manager to set axios default headers
-            axios.defaults.headers.common['Authorization'] = `Bearer ${tokenString}`;
 
             // Navigate to home
             navigate('/ports')

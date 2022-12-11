@@ -3,7 +3,7 @@ import registerUser from '../logic/registerUser'
 import { Link, useNavigate } from 'react-router-dom'
 import UserContext from "../UserContext";
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
+import appSessionManager from '../helpers/sessionManager';
 
 function Register() {
     const { setUser } = useContext(UserContext)
@@ -53,6 +53,8 @@ function Register() {
             const tokenString = tokenReponse.token
             const decodedToken = jwt_decode(tokenString)
 
+            appSessionManager.saveSessionToLocalStorage(tokenString)
+
             setUser({
                 _id: decodedToken.sub,
                 email: decodedToken.email,
@@ -61,10 +63,6 @@ function Register() {
             })
 
             console.log('INFO', `User ${decodedToken.name} successfully registered and logged in`)
-
-            //FIXME: use state manager to set axios default headers
-            axios.defaults.headers.common['Authorization'] = `Bearer ${tokenString}`;
-
 
             navigate('/ports')
         } catch (error) {
