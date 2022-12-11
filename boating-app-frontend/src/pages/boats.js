@@ -4,8 +4,6 @@ import BoatsList from '../components/boatslist';
 import getUserBoats from '../logic/boatslist';
 
 
-
-
 function Boats() {
 
 
@@ -32,7 +30,7 @@ function Boats() {
                 <BoatRegistration onCreate={refreshBoats}></BoatRegistration>
                 <div className="flex justify-center">
                     <div className="w-11/12">
-                        <BoatsList boatsList={boats}></BoatsList>
+                        <BoatsList boatsList={boats} onUpdate={refreshBoats}></BoatsList>
                     </div>
                 </div>
 

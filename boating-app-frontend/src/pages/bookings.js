@@ -5,9 +5,6 @@ import BookingCreation from "../components/createBooking";
 import BookingsList from "../components/bookingsList";
 import getUserBookings from "../logic/bookingsList";
 
-
-
-
 function Bookings() {
 
     // As long as we don't use a global store, we need to fetch ports and boats again
