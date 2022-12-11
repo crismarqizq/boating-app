@@ -50,8 +50,6 @@ mongoose.connect(MONGODB_URL)
         app.delete('/bookings/:bookingId', authenticateUserMiddleware, authoriseUser, deleteBooking)
 
 
-        //app.get('/search', searchGet)
-
         const { PORT } = process.env
         app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
     })

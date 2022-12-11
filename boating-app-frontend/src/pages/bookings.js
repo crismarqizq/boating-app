@@ -45,7 +45,7 @@ function Bookings() {
                 <BookingCreation onCreate={refreshBookings} boats={boats} ports={ports}></BookingCreation>
                 <div className="flex justify-center">
                     <div className="w-11/12">
-                        <BookingsList bookingsList={bookings} ports={ports} boats={boats} ></BookingsList>
+                        <BookingsList bookingsList={bookings} ports={ports} boats={boats} onUpdate={refreshBookings} ></BookingsList>
                     </div>
                 </div>
             </div>
