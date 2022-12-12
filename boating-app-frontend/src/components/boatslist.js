@@ -1,11 +1,35 @@
 import deleteBoat from '../logic/deleteBoat'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 
-function BoatsList({ boatsList, onUpdate }) {
 
+function BoatsList({ boatsList, onUpdate, onUpdateBoatRequest }) {
     let selectedBoatId = null
+
+
+    // const [updateBoatIsVisible, setUpdateBoatIsVisible] = useState(false)
+
+    // const updateBoatModal = (event) => {
+    //     event.preventDefault()
+    //     setUpdateBoatIsVisible(true)
+    // }
+
+    // const onUpdateBoatClose = () => {
+    //     setUpdateBoatIsVisible(false)
+    // }
+
+    // const triggerEditBoat = (boatId) => {
+
+    //     selectedBoatId = boatId
+    //     setUpdateBoatIsVisible(true)
+    //     console.log('showing edit modal')
+    // }
+
+    // const onUpdatedBoat = () => {
+    //     setUpdateBoatIsVisible(false)
+    //     onUpdate()
+    // }
 
     const confirmDeleteBoat = async (event) => {
         event.preventDefault()
@@ -83,14 +107,22 @@ function BoatsList({ boatsList, onUpdate }) {
                                                 {boat.draft}
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                <span>Edit</span>
+                                                <button type="button"
+                                                    className="px-6 py-2.5 bg-darkblue text-bone
+                                                            font-medium text-xs leading-tight uppercase rounded shadow-md
+                                                            hover:bg-blue-700 hover:shadow-lg
+                                                            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+                                                            active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"><FontAwesomeIcon icon={faPenToSquare}
+                                                        onClick={() => onUpdateBoatRequest(boat._id)} />
+                                                </button>
                                                 <button type="button"
                                                     className="px-6 py-2.5 bg-darkblue text-bone
                                                             font-medium text-xs leading-tight uppercase rounded shadow-md
                                                             hover:bg-blue-700 hover:shadow-lg
                                                             focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
                                                             active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onClick={() => selectedBoatId = boat._id} ><FontAwesomeIcon icon={faTrashCan} /></button>
+                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onClick={() => selectedBoatId = boat._id} ><FontAwesomeIcon icon={faTrashCan} />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

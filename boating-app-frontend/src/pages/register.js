@@ -182,7 +182,14 @@ function Register() {
                                         onChange={(e) => { setPassword(e.target.value) }} />
                                 </div>
 
-                                <button onClick={nextFormStep}>Next</button>
+                                <button type="button"
+                                    className=" px-3 py-1.5 bg-midgreen text-bone w-full
+                                                            font-medium text-xs leading-tight uppercase rounded shadow-md
+                                                            hover:bg-blue-700 hover:shadow-lg" onClick={nextFormStep}>Next step</button>
+
+                                <div>
+                                    <Link to="/login" className='underline'>Already have an account?</Link>
+                                </div>
                             </>}
 
                             {formStep === 2 && <>
@@ -256,7 +263,7 @@ function Register() {
 
                             </>}
 
-                            <Link to="/login" className='underline'>Already have an account?</Link>
+
                         </form>
                     </div>
 

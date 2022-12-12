@@ -12,11 +12,12 @@ const registerUser = require('./controllers/registerUser')
 const getPorts = require('./controllers/getPorts')
 const registerBoat = require('./controllers/registerBoat')
 const getBoats = require('./controllers/getBoats')
+const updateBoat = require('./controllers/updateBoat')
 const deleteBoat = require('./controllers/deleteBoat')
 
 const createBooking = require('./controllers/createBooking')
 const getBookings = require('./controllers/getBookings')
-// const updatePost = require('./handlers/updatePost')
+
 const deleteBooking = require('./controllers/deleteBooking')
 
 const context = require('./logic/context')
@@ -44,6 +45,7 @@ mongoose.connect(MONGODB_URL)
         app.get('/ports', authenticateUserMiddleware, getPorts)
         app.get('/boats', authenticateUserMiddleware, getBoats)
         app.post('/boats', authenticateUserMiddleware, registerBoat)
+        app.patch('/boats/:boatId', authenticateUserMiddleware, authoriseUser, updateBoat)
         app.delete('/boats/:boatId', authenticateUserMiddleware, authoriseUser, deleteBoat)
 
         app.post('/bookings', authenticateUserMiddleware, createBooking)
