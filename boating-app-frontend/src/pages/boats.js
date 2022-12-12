@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import BoatForm from '../components/boatForm';
-import BoatRegistration from '../components/boatRegistration';
 import BoatsList from '../components/boatslist';
 import getUserBoats from '../logic/boatslist';
 
@@ -23,13 +22,23 @@ function Boats() {
 
 
     const refreshBoats = async () => {
-        setisBoatFormVisible(false)
         await fetchBoats();
     }
 
     const triggerNewBoatCreation = (event) => {
         event.preventDefault()
         setisBoatFormVisible(true)
+    }
+
+    const hideForm = (event) => {
+        event.preventDefault()
+        setisBoatFormVisible(false)
+
+    }
+
+    const onBoatsEdited = async () => {
+        setisBoatFormVisible(false)
+        await refreshBoats()
     }
 
     const onUpdateBoatRequest = (boatId) => {
@@ -39,17 +48,34 @@ function Boats() {
     }
 
     return (
-        <main className="w-screen min-h-screen bg-bone pt-10">
-            <div>{isBoatFormVisible && <BoatForm onChange={refreshBoats} boatInfo={editableBoatInfo}></BoatForm>}
+        <main className="w-screen min-h-screen bg-bone pt-10 flex justify-center">
+            <div className="flex flex-col items-center w-11/12">
 
-                <div className="flex justify-center">
-                    <div className="w-11/12">
-                        <BoatsList boatsList={boats} onUpdate={refreshBoats} onUpdateBoatRequest={onUpdateBoatRequest}></BoatsList>
+                {boats.length && <div className="w-full">
+
+                    <h2 className="mb-4">Your boats</h2>
+                    <BoatsList boatsList={boats} onUpdate={refreshBoats} onUpdateBoatRequest={onUpdateBoatRequest}></BoatsList>
+
+
+                </div>}
+
+
+                {!isBoatFormVisible &&
+                    <div className='flex w-full justify-end'>
+                        <button className="px-3 py-1.5 mt-4 bg-midgreen text-bone 
+                                font-medium text-xs leading-tight uppercase rounded shadow-md
+                                hover:bg-blue-700 hover:shadow-lg"onClick={triggerNewBoatCreation}>
+                            Add new boat to my list
+                        </button>
                     </div>
-                    <div>
-                        <button onClick={triggerNewBoatCreation}>Add new boat</button>
+                }
+
+
+                {isBoatFormVisible &&
+                    <div className='flex w-11/12 my-10'>
+                        <BoatForm onChange={onBoatsEdited} boatInfo={editableBoatInfo} onDiscard={hideForm} ></BoatForm>
                     </div>
-                </div>
+                }
 
             </div>
         </main>

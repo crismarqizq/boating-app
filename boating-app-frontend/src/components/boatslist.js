@@ -7,30 +7,6 @@ import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 function BoatsList({ boatsList, onUpdate, onUpdateBoatRequest }) {
     let selectedBoatId = null
 
-
-    // const [updateBoatIsVisible, setUpdateBoatIsVisible] = useState(false)
-
-    // const updateBoatModal = (event) => {
-    //     event.preventDefault()
-    //     setUpdateBoatIsVisible(true)
-    // }
-
-    // const onUpdateBoatClose = () => {
-    //     setUpdateBoatIsVisible(false)
-    // }
-
-    // const triggerEditBoat = (boatId) => {
-
-    //     selectedBoatId = boatId
-    //     setUpdateBoatIsVisible(true)
-    //     console.log('showing edit modal')
-    // }
-
-    // const onUpdatedBoat = () => {
-    //     setUpdateBoatIsVisible(false)
-    //     onUpdate()
-    // }
-
     const confirmDeleteBoat = async (event) => {
         event.preventDefault()
 
@@ -48,9 +24,9 @@ function BoatsList({ boatsList, onUpdate, onUpdateBoatRequest }) {
 
     return (
         <>
-            <div className="flex flex-col">
-                <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="flex flex-col min-w-full">
+                <div className="overflow-x-auto">
+                    <div className="py-2 inline-block min-w-full">
                         <div className="overflow-hidden">
                             <table className="min-w-full">
                                 <thead className="bg-white border-b">
@@ -76,7 +52,7 @@ function BoatsList({ boatsList, onUpdate, onUpdateBoatRequest }) {
                                         <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                             Draft
                                         </th>
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-center">
                                             Actions
                                         </th>
                                     </tr>
@@ -106,7 +82,7 @@ function BoatsList({ boatsList, onUpdate, onUpdateBoatRequest }) {
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                 {boat.draft}
                                             </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex justify-center">
                                                 <button type="button"
                                                     className="px-6 py-2.5 bg-darkblue text-bone
                                                             font-medium text-xs leading-tight uppercase rounded shadow-md
@@ -116,7 +92,7 @@ function BoatsList({ boatsList, onUpdate, onUpdateBoatRequest }) {
                                                         onClick={() => onUpdateBoatRequest(boat._id)} />
                                                 </button>
                                                 <button type="button"
-                                                    className="px-6 py-2.5 bg-darkblue text-bone
+                                                    className="px-6 py-2.5 ml-2 bg-darkblue text-bone
                                                             font-medium text-xs leading-tight uppercase rounded shadow-md
                                                             hover:bg-blue-700 hover:shadow-lg
                                                             focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
