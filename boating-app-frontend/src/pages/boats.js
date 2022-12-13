@@ -33,7 +33,6 @@ function Boats() {
     const hideForm = (event) => {
         event.preventDefault()
         setisBoatFormVisible(false)
-
     }
 
     const onBoatsEdited = async () => {
