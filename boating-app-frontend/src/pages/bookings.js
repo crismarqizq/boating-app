@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import getPorts from "../logic/portsList";
 import boatslist from "../logic/boatslist"
-import BookingCreation from "../components/createBooking";
 import BookingsList from "../components/bookingsList";
 import getUserBookings from "../logic/bookingsList";
+import BookingForm from "../components/bookingForm";
 
 function Bookings() {
 
@@ -11,8 +11,6 @@ function Bookings() {
     const [ports, setPorts] = useState([])
     const [boats, setBoats] = useState([])
     const [bookings, setBookings] = useState([])
-
-
 
 
     useEffect(() => {
@@ -25,7 +23,6 @@ function Bookings() {
             setBoats(fetchedBoats)
             setBookings(fetchedBookings)
 
-
         }
         fetchData()
     }, [])
@@ -35,11 +32,11 @@ function Bookings() {
         setBookings(refreshedBookings)
     }
 
-
     return (
         <main className="w-screen min-h-screen bg-bone pt-10">
             <div>
-                <BookingCreation onCreate={refreshBookings} boats={boats} ports={ports}></BookingCreation>
+                <BookingForm boats={boats} ports={ports} onUpdate={refreshBookings}></BookingForm>
+
                 <div className="flex justify-center">
                     <div className="w-11/12">
                         <BookingsList bookingsList={bookings} ports={ports} boats={boats} onUpdate={refreshBookings} ></BookingsList>

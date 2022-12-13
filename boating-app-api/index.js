@@ -17,7 +17,7 @@ const deleteBoat = require('./controllers/deleteBoat')
 
 const createBooking = require('./controllers/createBooking')
 const getBookings = require('./controllers/getBookings')
-
+const updateBooking = require('./controllers/updateBooking')
 const deleteBooking = require('./controllers/deleteBooking')
 
 const context = require('./logic/context')
@@ -50,7 +50,7 @@ mongoose.connect(MONGODB_URL)
 
         app.post('/bookings', authenticateUserMiddleware, createBooking)
         app.get('/bookings', authenticateUserMiddleware, getBookings)
-        // app.patch('/posts/:postId', authenticateUserMiddleware, authoriseUser, updatePost)
+        app.patch('/bookings/:bookingId', authenticateUserMiddleware, authoriseUser, updateBooking)
         app.delete('/bookings/:bookingId', authenticateUserMiddleware, authoriseUser, deleteBooking)
 
 
