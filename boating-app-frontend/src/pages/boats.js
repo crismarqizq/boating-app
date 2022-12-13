@@ -33,6 +33,7 @@ function Boats() {
     const hideForm = (event) => {
         event.preventDefault()
         setisBoatFormVisible(false)
+        setEditableBoatInfo(null)
     }
 
     const onBoatsEdited = async () => {
@@ -51,11 +52,8 @@ function Boats() {
             <div className="flex flex-col items-center w-11/12">
 
                 {boats.length && <div className="w-full">
-
                     <h2 className="mb-4">Your boats</h2>
                     <BoatsList boatsList={boats} onUpdate={refreshBoats} onUpdateBoatRequest={onUpdateBoatRequest}></BoatsList>
-
-
                 </div>}
 
 

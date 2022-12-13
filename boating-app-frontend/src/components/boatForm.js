@@ -10,7 +10,7 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
         name: '',
         flag: '',
         regNumber: '',
-        sail: true,
+        sail: null,
         length: '',
         beam: '',
         draft: ''
@@ -22,8 +22,7 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
 
         const form = event.target
 
-
-        const isSailboat = form.sail.value === 'yes' ? true : false
+        const isSailboat = form.sail.checked
 
         const boatFormInfo = {
             name: form.boatName.value,
@@ -52,7 +51,6 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
 
     useEffect(() => {
         if (boatInfo) {
-            console.log('BoatForm mounted in edit mode')
             setIsEditMode(true)
             setFormValues(boatInfo)
         } else {
@@ -76,7 +74,7 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
                                     className="form-control 
                                     block w-full px-3 py-1.5 text-base font-normal 
                                     text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 
-                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 
                                     focus:outline-none"
                                     id="nameInput"
                                     name="boatName"
@@ -86,20 +84,9 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
                             <div className="form-group mb-6">
                                 <label htmlFor="boatFlagInput" className="form-label inline-block mb-2 text-gray-700">Flag</label>
                                 <input type="text"
-                                    className="form-control block
-                                        w-full
-                                        px-3
-                                        py-1.5
-                                        text-base
-                                        font-normal
-                                        text-gray-700
-                                        bg-white bg-clip-padding
-                                        border border-solid border-gray-300
-                                        rounded
-                                        transition
-                                        ease-in-out
-                                        m-0
-                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                    className="form-control block w-full px-3 py-1.5 text-base 
+                                    font-normal text-gray-700 bg-white bg-clip-padding border border-solid
+                                    border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:outline-none"
                                     id="boatFlagInput"
                                     name="flag"
                                     defaultValue={formValues.flag}
@@ -108,50 +95,28 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
                             <div className="form-group mb-6">
                                 <label htmlFor="regNumberInput" className="form-label inline-block mb-2 text-gray-700">Registration number</label>
                                 <input type="text"
-                                    className="form-control block
-                                        w-full
-                                        px-3
-                                        py-1.5
-                                        text-base
-                                        font-normal
-                                        text-gray-700
-                                        bg-white bg-clip-padding
-                                        border border-solid border-gray-300
-                                        rounded
-                                        transition
-                                        ease-in-out
-                                        m-0
-                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                    className="form-control block w-full px-3 py-1.5
+                                    text-base font-normal text-gray-700 bg-white bg-clip-padding border 
+                                    border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:outline-none"
                                     id="regNumberInput"
                                     name="regNumber"
                                     defaultValue={formValues.regNumber}
                                     placeholder="Registration number" />
                             </div>
                             <div className="form-group mb-6">
-                                <label htmlFor="sailInput" className="form-label inline-block mb-2 text-gray-700">Type</label>
-                                <select className="form-select appearance-none
-                                    block
-                                    w-full
-                                    px-3
-                                    py-1.5
-                                    text-base
-                                    font-normal
-                                    text-gray-700
-                                    bg-white bg-clip-padding bg-no-repeat
-                                    border border-solid border-gray-300
-                                    rounded
-                                    transition
-                                    ease-in-out
-                                    m-0
-                                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                    id="sailInput"
-                                    name="sail"
-                                    aria-label="Boat type selector"
-                                    defaultValue={!isEditMode && formValues.sail === true ? 'yes' : 'no'}
-                                    disabled={isEditMode}>
-                                    <option value="no">Power</option>
-                                    <option value="yes">Sail</option>
-                                </select>
+
+                                <div className="form-check form-switch">
+                                <label className="form-check-label inline-block text-gray-800" 
+                                        htmlFor="flexSwitchCheckChecked">
+                                            Sailboat
+                                    </label>
+                                    <input className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left 
+                                                h-5 align-top bg-no-repeat bg-contain bg-gray-300 
+                                                focus:outline-none cursor-pointer shadow-sm" 
+                                            type="checkbox" role="switch" id="sailInput" name="sail" 
+                                            defaultChecked={formValues.sail}
+                                            disabled={isEditMode}/>
+                                </div>
                             </div>
                         </div>
                         <div className="flex-col w-1/2">
@@ -171,7 +136,7 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
                                         transition
                                         ease-in-out
                                         m-0
-                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        focus:text-gray-700 focus:outline-none"
                                     id="lengthInput"
                                     name="length"
                                     defaultValue={formValues.length}
@@ -193,7 +158,7 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
                                         transition
                                         ease-in-out
                                         m-0
-                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        focus:text-gray-700 focus:outline-none"
                                     id="beamInput"
                                     name="beam"
                                     defaultValue={formValues.beam}
@@ -215,7 +180,7 @@ function BoatForm({ onChange, boatInfo, onDiscard }) {
                                         transition
                                         ease-in-out
                                         m-0
-                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        focus:text-gray-700 focus:outline-none"
                                     id="draftInput"
                                     name="draft"
                                     defaultValue={formValues.draft}

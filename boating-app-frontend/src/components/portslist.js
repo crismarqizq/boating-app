@@ -17,13 +17,13 @@ function PortsList() {
 
 
     return (
-        <>
+        <div className="w-full">
             <div className="grid gap-10 grid-cols-3 p-8">
                 {ports && ports.map(port => (
                     <Port key={port._id} portInfo={port}></Port>
                 ))}
             </div>
-        </>
+        </div> 
     )
 
 }

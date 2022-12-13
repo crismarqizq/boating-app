@@ -10,7 +10,7 @@ function Bookings() {
     // As long as we don't use a global store, we need to fetch ports and boats again
     const [ports, setPorts] = useState([])
     const [boats, setBoats] = useState([])
-    const [isBookingFormVisible, setisBookingFormVisible] = useState(false)
+    const [isBookingFormVisible, setIsBookingFormVisible] = useState(false)
     const [editableBookingInfo, setEditableBookingInfo] = useState(false)
     const [bookings, setBookings] = useState([])
 
@@ -31,23 +31,26 @@ function Bookings() {
 
     const triggerNewBookingCreation = (event) => {
         event.preventDefault()
-        setisBookingFormVisible(true)
+        setIsBookingFormVisible(true)
     }
 
     const hideForm = (event) => {
         event.preventDefault()
-        setisBookingFormVisible(false)
+        setIsBookingFormVisible(false)
+        setEditableBookingInfo(null)
+
     }
 
     const onUpdateBookingRequest = (bookingId) => {
         console.log('Received update event for boat', bookingId)
         setEditableBookingInfo(bookings.find(booking => booking._id === bookingId))
-        setisBookingFormVisible(true)
+        setIsBookingFormVisible(true)
     }
 
     const refreshBookings = async () => {
         const refreshedBookings = await getUserBookings()
         setBookings(refreshedBookings)
+        setIsBookingFormVisible(null)
     }
 
     return (

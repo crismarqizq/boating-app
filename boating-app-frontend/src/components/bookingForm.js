@@ -1,21 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import createBooking from "../logic/createBooking";
 import updateBooking from "../logic/updateBooking"
 
 function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
 
-    const [isEditMode, setIsEditMode] = useState(false)
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
-
-    const [formValues, setFormValues] = useState({
-        startDate: '',
-        endDate: '',
-        port: '',
-        boat: '',
-
-    })
-
 
 
     const saveForm = async (event) => {
@@ -31,27 +21,18 @@ function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
         }
 
         try {
-            if (isEditMode) {
+            if (bookingInfo) {
                 await updateBooking(bookingInfo._id, bookingFormInfo)
+
             } else {
                 await createBooking(bookingFormInfo)
             }
 
-            await onUpdate()
+            onUpdate()
         } catch (error) {
             alert(error.message)
         }
     }
-
-    useEffect(() => {
-        if (bookingInfo) {
-            console.log('BoatForm mounted in edit mode')
-            setIsEditMode(true)
-            setFormValues(bookingInfo)
-        } else {
-            console.log('BoatForm mounted in create mode')
-        }
-    }, [bookingInfo])
 
 
     return (
@@ -65,7 +46,8 @@ function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
                                     <input type="date"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Select a date" data-mdb-toggle="datepicker"
-                                        defaultValue={formValues.startDate}
+                                        //defaultValue={formValues.startDate}
+                                        defaultValue={bookingInfo ? bookingInfo.startDate : ""}
                                         onChange={(e) => { setStartDate(e.target.value) }} />
                                     <label htmlFor="floatingInput" className="text-gray-700">Select arrival date</label>
                                 </div>
@@ -75,7 +57,8 @@ function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
                                     <input type="date"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Select a date" data-mdb-toggle="datepicker"
-                                        defaultValue={formValues.endDate}
+                                        //defaultValue={formValues.endDate}
+                                        defaultValue={bookingInfo ? bookingInfo.endDate : ""}
                                         onChange={(e) => { setEndDate(e.target.value) }} />
                                     <label htmlFor="floatingInput" className="text-gray-700">Select departure date</label>
                                 </div>
@@ -91,8 +74,9 @@ function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
                                     id="portInput"
                                     name="port"
                                     aria-label="Port selector"
-                                    defaultValue={!isEditMode && formValues.port}
-                                    disabled={isEditMode}>
+                                    defaultValue={bookingInfo ? bookingInfo.port : ""}
+                                    //defaultValue={!isEditMode && formValues.port}
+                                    disabled={bookingInfo}>
                                     {ports.map(port => (
                                         <option key={port._id} value={port._id}> {port.name}</option>)
                                     )}
@@ -111,8 +95,9 @@ function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
                                     id="userBoatInput"
                                     name="boat"
                                     aria-label="Boat selector"
-                                    defaultValue={!isEditMode && formValues.boat}
-                                    disabled={isEditMode}>
+                                    defaultValue={bookingInfo ? bookingInfo.boat : ""}
+                                    //defaultValue={!isEditMode && formValues.boat}
+                                    disabled={!!bookingInfo}>
                                     {boats.map(boat => (
                                         <option key={boat._id} value={boat._id}> {boat.name}</option>)
                                     )}
@@ -133,7 +118,7 @@ function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
                             className="px-6 py-2.5 ml-2 bg-midgreen text-white font-medium text-xs leading-tight uppercase 
                             rounded shadow-md hover:shadow-lg focus:shadow-lg 
                             focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out">
-                            Confirm booking
+                            {bookingInfo ? 'Save changes' : 'Confirm booking'}
                         </button>
                     </div>
                 </form>

@@ -5,8 +5,11 @@ function PortsPage() {
 
     return (
 
-        <main className="w-screen min-h-full bg-bone pt-10">
-            <PortsList></PortsList>
+        <main className="w-screen min-h-full bg-bone flex justify-center pt-10">
+            <div className="w-11/12">
+                <PortsList></PortsList>
+            </div>
+            
         </main>
 
     );
