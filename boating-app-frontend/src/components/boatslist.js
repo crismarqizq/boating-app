@@ -88,8 +88,9 @@ function BoatsList({ boatsList, onUpdate, onUpdateBoatRequest }) {
                                                             font-medium text-xs leading-tight uppercase rounded shadow-md
                                                             hover:bg-blue-700 hover:shadow-lg
                                                             focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-                                                            active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"><FontAwesomeIcon icon={faPenToSquare}
-                                                        onClick={() => onUpdateBoatRequest(boat._id)} />
+                                                            active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                    onClick={() => onUpdateBoatRequest(boat._id)}>
+                                                    <FontAwesomeIcon icon={faPenToSquare} />
                                                 </button>
                                                 <button type="button"
                                                     className="px-6 py-2.5 ml-2 bg-darkblue text-bone

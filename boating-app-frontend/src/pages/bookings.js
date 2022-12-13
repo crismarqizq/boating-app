@@ -10,6 +10,7 @@ function Bookings() {
     // As long as we don't use a global store, we need to fetch ports and boats again
     const [ports, setPorts] = useState([])
     const [boats, setBoats] = useState([])
+    const [isBookingFormVisible, setisBookingFormVisible] = useState(false)
     const [bookings, setBookings] = useState([])
 
 
@@ -27,21 +28,46 @@ function Bookings() {
         fetchData()
     }, [])
 
+    const triggerNewBookingCreation = (event) => {
+        event.preventDefault()
+        setisBookingFormVisible(true)
+    }
+
+    const hideForm = (event) => {
+        event.preventDefault()
+        setisBookingFormVisible(false)
+    }
+
     const refreshBookings = async () => {
         const refreshedBookings = await getUserBookings()
         setBookings(refreshedBookings)
     }
 
     return (
-        <main className="w-screen min-h-screen bg-bone pt-10">
-            <div>
-                <BookingForm boats={boats} ports={ports} onUpdate={refreshBookings}></BookingForm>
+        <main className="w-screen min-h-screen bg-bone pt-10 flex justify-center">
+            <div className="flex flex-col items-center w-11/12">
 
-                <div className="flex justify-center">
-                    <div className="w-11/12">
-                        <BookingsList bookingsList={bookings} ports={ports} boats={boats} onUpdate={refreshBookings} ></BookingsList>
-                    </div>
+                <div className="w-full">
+
+                    <h2 className="mb-4">Your bookings</h2>
+
+                    <BookingsList bookingsList={bookings} ports={ports} boats={boats} onUpdate={refreshBookings} ></BookingsList>
+
                 </div>
+                {!isBookingFormVisible &&
+                    <div className='flex w-full justify-end'>
+                        <button className="px-3 py-1.5 mt-4 bg-midgreen text-bone 
+                                font-medium text-xs leading-tight uppercase rounded shadow-md
+                                hover:bg-blue-700 hover:shadow-lg" onClick={triggerNewBookingCreation}>
+                            Add new booking to my list
+                        </button>
+                    </div>
+                }
+
+                {isBookingFormVisible &&
+                    <div className='flex w-11/12 my-10'>
+                        <BookingForm boats={boats} ports={ports} onUpdate={refreshBookings} onDiscard={hideForm}></BookingForm>
+                    </div>}
             </div>
 
         </main>

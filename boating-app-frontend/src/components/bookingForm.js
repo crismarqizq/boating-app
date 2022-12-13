@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import createBooking from "../logic/createBooking";
 
-function BookingForm({ onUpdate, boats, ports }) {
+function BookingForm({ onUpdate, boats, ports, onDiscard }) {
 
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
@@ -30,8 +30,8 @@ function BookingForm({ onUpdate, boats, ports }) {
 
 
     return (
-        <div className="flex justify-center">
-            <div className="block p-6 rounded-lg shadow-lg bg-white w-2/3 ">
+        <div className="flex justify-center min-w-full">
+            <div className="block p-6 rounded-lg shadow-lg bg-white min-w-full">
                 <form onSubmit={saveForm} >
                     <div className="flex justify-center">
                         <div className="flex-col w-1/2 mr-4">
@@ -91,27 +91,21 @@ function BookingForm({ onUpdate, boats, ports }) {
                         </div>
                         <div className="flex-col w-1/2"></div>
                     </div>
-
-                    <button type="submit"
-                        className="w-full
-                            px-6
-                            py-2.5
-                            bg-midgreen
-                            text-white
-                            font-medium
-                            text-xs
-                            leading-tight
-                            uppercase
-                            rounded
-                            shadow-md
-                            hover:bg-blue-700 hover:shadow-lg
-                            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-                            active:bg-blue-800 active:shadow-lg
-                            transition
-                            duration-150
-                            ease-in-out">
-                        Confirm booking
-                    </button>
+                    <div className='flex justify-end w-full'>
+                        <button type="button"
+                            className="px-6 py-2.5 bg-darkblue text-white font-medium text-xs leading-tight uppercase 
+                            rounded shadow-md hover:shadow-lg focus:shadow-lg 
+                            focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
+                            onClick={onDiscard}>
+                            Discard
+                        </button>
+                        <button type="submit"
+                            className="px-6 py-2.5 ml-2 bg-midgreen text-white font-medium text-xs leading-tight uppercase 
+                            rounded shadow-md hover:shadow-lg focus:shadow-lg 
+                            focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out">
+                            Confirm booking
+                        </button>
+                    </div>
                 </form>
 
             </div >
