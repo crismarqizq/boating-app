@@ -11,6 +11,7 @@ function Bookings() {
     const [ports, setPorts] = useState([])
     const [boats, setBoats] = useState([])
     const [isBookingFormVisible, setisBookingFormVisible] = useState(false)
+    const [editableBookingInfo, setEditableBookingInfo] = useState(false)
     const [bookings, setBookings] = useState([])
 
 
@@ -38,6 +39,12 @@ function Bookings() {
         setisBookingFormVisible(false)
     }
 
+    const onUpdateBookingRequest = (bookingId) => {
+        console.log('Received update event for boat', bookingId)
+        setEditableBookingInfo(bookings.find(booking => booking._id === bookingId))
+        setisBookingFormVisible(true)
+    }
+
     const refreshBookings = async () => {
         const refreshedBookings = await getUserBookings()
         setBookings(refreshedBookings)
@@ -51,7 +58,7 @@ function Bookings() {
 
                     <h2 className="mb-4">Your bookings</h2>
 
-                    <BookingsList bookingsList={bookings} ports={ports} boats={boats} onUpdate={refreshBookings} ></BookingsList>
+                    <BookingsList bookingsList={bookings} ports={ports} boats={boats} onUpdate={refreshBookings} onUpdateBookingRequest={onUpdateBookingRequest} ></BookingsList>
 
                 </div>
                 {!isBookingFormVisible &&
@@ -66,7 +73,7 @@ function Bookings() {
 
                 {isBookingFormVisible &&
                     <div className='flex w-11/12 my-10'>
-                        <BookingForm boats={boats} ports={ports} onUpdate={refreshBookings} onDiscard={hideForm}></BookingForm>
+                        <BookingForm boats={boats} ports={ports} onUpdate={refreshBookings} bookingInfo={editableBookingInfo} onDiscard={hideForm}></BookingForm>
                     </div>}
             </div>
 

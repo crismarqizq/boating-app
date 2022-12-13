@@ -3,7 +3,7 @@ import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import deleteBooking from '../logic/deleteBooking'
 
 
-function BookingsList({ bookingsList, ports, boats, onUpdate }) {
+function BookingsList({ bookingsList, ports, boats, onUpdate, onUpdateBookingRequest }) {
 
 
     let selectedBookingId = null
@@ -92,8 +92,9 @@ function BookingsList({ bookingsList, ports, boats, onUpdate }) {
                                                             font-medium text-xs leading-tight uppercase rounded shadow-md
                                                             hover:bg-blue-700 hover:shadow-lg
                                                             focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-                                                            active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"><FontAwesomeIcon icon={faPenToSquare}
-                                                    />
+                                                            active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                    onClick={() => onUpdateBookingRequest(booking._id)}>
+                                                    <FontAwesomeIcon icon={faPenToSquare} />
                                                 </button>
                                                 <button type="button"
                                                     className="px-6 py-2.5 ml-2 bg-darkblue text-bone

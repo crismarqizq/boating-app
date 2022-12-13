@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
 import createBooking from "../logic/createBooking";
+import updateBooking from "../logic/updateBooking"
 
-function BookingForm({ onUpdate, boats, ports, onDiscard }) {
+function BookingForm({ onUpdate, boats, ports, onDiscard, bookingInfo }) {
 
+    const [isEditMode, setIsEditMode] = useState(false)
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
+
+    const [formValues, setFormValues] = useState({
+        startDate: '',
+        endDate: '',
+        port: '',
+        boat: '',
+
+    })
 
 
 
@@ -21,12 +31,27 @@ function BookingForm({ onUpdate, boats, ports, onDiscard }) {
         }
 
         try {
-            await createBooking(bookingFormInfo)
+            if (isEditMode) {
+                await updateBooking(bookingInfo._id, bookingFormInfo)
+            } else {
+                await createBooking(bookingFormInfo)
+            }
+
             await onUpdate()
         } catch (error) {
             alert(error.message)
         }
     }
+
+    useEffect(() => {
+        if (bookingInfo) {
+            console.log('BoatForm mounted in edit mode')
+            setIsEditMode(true)
+            setFormValues(bookingInfo)
+        } else {
+            console.log('BoatForm mounted in create mode')
+        }
+    }, [bookingInfo])
 
 
     return (
@@ -40,6 +65,7 @@ function BookingForm({ onUpdate, boats, ports, onDiscard }) {
                                     <input type="date"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Select a date" data-mdb-toggle="datepicker"
+                                        defaultValue={formValues.startDate}
                                         onChange={(e) => { setStartDate(e.target.value) }} />
                                     <label htmlFor="floatingInput" className="text-gray-700">Select arrival date</label>
                                 </div>
@@ -49,6 +75,7 @@ function BookingForm({ onUpdate, boats, ports, onDiscard }) {
                                     <input type="date"
                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Select a date" data-mdb-toggle="datepicker"
+                                        defaultValue={formValues.endDate}
                                         onChange={(e) => { setEndDate(e.target.value) }} />
                                     <label htmlFor="floatingInput" className="text-gray-700">Select departure date</label>
                                 </div>
@@ -64,7 +91,8 @@ function BookingForm({ onUpdate, boats, ports, onDiscard }) {
                                     id="portInput"
                                     name="port"
                                     aria-label="Port selector"
-                                    defaultValue={"no"}>
+                                    defaultValue={!isEditMode && formValues.port}
+                                    disabled={isEditMode}>
                                     {ports.map(port => (
                                         <option key={port._id} value={port._id}> {port.name}</option>)
                                     )}
@@ -82,7 +110,9 @@ function BookingForm({ onUpdate, boats, ports, onDiscard }) {
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                     id="userBoatInput"
                                     name="boat"
-                                    aria-label="Boat selector">
+                                    aria-label="Boat selector"
+                                    defaultValue={!isEditMode && formValues.boat}
+                                    disabled={isEditMode}>
                                     {boats.map(boat => (
                                         <option key={boat._id} value={boat._id}> {boat.name}</option>)
                                     )}
