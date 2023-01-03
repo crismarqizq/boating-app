@@ -1,31 +1,45 @@
 import { useEffect, useState } from "react";
 import getPorts from "../logic/portsList";
 import Port from "./port";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDharmachakra } from "@fortawesome/free-solid-svg-icons";
 
 function PortsList() {
+  const [ports, setPorts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [ports, setPorts] = useState([])
+  useEffect(() => {
+    const fetchPorts = async () => {
+      const fetchedPorts = await getPorts(true);
+      setPorts(fetchedPorts);
+      setIsLoading(false);
+    };
+    fetchPorts();
+  }, []);
 
-
-    useEffect(() => {
-        const fetchPorts = async () => {
-            const fetchedPorts = await getPorts()
-            setPorts(fetchedPorts)
-        }
-        fetchPorts()
-    }, [])
-
-
-    return (
-        <div className="w-full">
-            <div className="grid gap-10 grid-cols-3 p-8">
-                {ports && ports.map(port => (
-                    <Port key={port._id} portInfo={port}></Port>
-                ))}
-            </div>
-        </div> 
-    )
-
+  return (
+    <div className="w-full">
+      {isLoading && (
+        <div className="flex justify-center items-center">
+          <div
+            className="animate-spin mt-16"
+            style={{ animation: "spin 4s linear infinite" }}
+            role="status"
+          >
+            <FontAwesomeIcon
+              icon={faDharmachakra}
+              className="text-6xl text-darkblue"
+            />
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )}
+      <div className="grid gap-10 grid-cols-3 p-4">
+        {ports &&
+          ports.map((port) => <Port key={port._id} portInfo={port}></Port>)}
+      </div>
+    </div>
+  );
 }
 
-export default PortsList
+export default PortsList;
