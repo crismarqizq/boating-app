@@ -35,7 +35,6 @@ The main idea was to mix technology with a field/subject I am really passionate 
 - User's boats
 - Boat Form
 
-
 ### 📈 Data Model
 
 All data storage is done in MongoDB by using Mongoose.
@@ -73,13 +72,7 @@ Port
 - id: ObjectId
 - name: (String, required)
 - coordinates ([Number], required),
-- address {
-    street: (String, required)
-    postalCode: (String, required)
-    city: (String, required)
-    country: (String, required)
-}
-
+- address
 - berths: (Number, required)
 - vhf: (Number, required)
 - phone: (String, required)
