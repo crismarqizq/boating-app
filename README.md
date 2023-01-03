@@ -2,13 +2,13 @@
 
 ## 🔎 Intro
 
-It's the final fullstack project where the main objective is to apply everything learnt during the last three months by developing a web app of our choice, in my case, an app were sailors can book their stays in different ports.
+This is the final fullstack project where the main objective is to apply everything learnt during the last three months by developing a web app of our choice, in my case, an app were sailors can book their stays in different ports.
 
 ### 🌊 Why Boating-app?
 
 The main idea was to mix technology with a field/subject I am really passionate about: the sea.  While thinking about this, I asked myself, if in Internet you can book in different sites the accomodation in-land, what about an app to book stays in port when sailing? And that is how Boating-app was born.
 
-![](https://media.giphy.com/media/XkqzaEcKWR0X1zUeW2/giphy.gif)
+
 
 ## Functional Description
 
