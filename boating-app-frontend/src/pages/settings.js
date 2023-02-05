@@ -19,7 +19,11 @@ function Settings() {
     <main className="w-screen min-h-screen bg-bone flex justify-center pt-10">
       <div className="w-11/12">
         {userInfo && <SettingsForm userInfo={userInfo}></SettingsForm>}
-        {userInfo && <PasswordUpdater userInfo={userInfo}></PasswordUpdater>}
+        {userInfo && (
+          <div className="mt-10">
+            <PasswordUpdater userInfo={userInfo}></PasswordUpdater>
+          </div>
+        )}
       </div>
     </main>
   );

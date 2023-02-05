@@ -9,7 +9,6 @@ This is the final fullstack project where the main objective is to apply everyth
 The main idea was to mix technology with a field/subject I am really passionate about: the sea.  While thinking about this, I asked myself, if in Internet you can book in different sites the accomodation in-land, what about an app to book stays in port when sailing? And that is how Boating-app was born.
 
 
-
 ## Functional Description
 
 - [X] User Login
@@ -19,6 +18,28 @@ The main idea was to mix technology with a field/subject I am really passionate 
 - [X] User settings
 - [X] View main port info
 - [X] View the weather on each port
+
+## App showcase
+
+### Login and registration forms
+
+![Login](./docs/img/login-page.png)
+
+### Ports view
+
+![Ports](./docs/img/ports.png)
+
+### Boats manager
+
+![Boats](./docs/img/boat-manager.png)
+
+### Bookings manager
+
+![Bookings](./docs/img/booking-manager.png)
+
+### User settings
+
+![Settings](./docs/img/settings.png)
 
 ## Technical Description
 
